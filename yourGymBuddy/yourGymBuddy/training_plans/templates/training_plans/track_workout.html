@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Track Your Workout</h2>
+<form method="POST">
+    {% csrf_token %}
+    <ul>
+        {% for set in sets %}
+        <li>
+            <label>{{ set.exercise.name }} - {{ set.reps }} reps:</label>
+            <input type="number" name="weight_{{ set.id }}" placeholder="Weight" required> kg
+            <input type="number" name="reps_{{ set.id }}" value="{{ set.reps }}" required> reps
+        </li>
+        {% endfor %}
+    </ul>
+    <button type="submit" class="btn btn-success">Save Workout</button>
+</form>
+{% endblock %}

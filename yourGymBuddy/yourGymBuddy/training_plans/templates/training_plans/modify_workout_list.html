@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Select a Workout Plan to Modify</h2>
+<ul class="list-group">
+    {% for plan in workout_plans %}
+    <li class="list-group-item">
+        <a href="{% url 'modify_workout' plan.id %}">{{ plan.title }}</a> - Created on {{ plan.created_at }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

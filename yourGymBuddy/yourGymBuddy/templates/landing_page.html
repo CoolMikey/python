@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1>Welcome to GymBuddy!</h1>
+    <p>Your personal and communal gym trainer.</p>
+    <p>Track your workouts, monitor your progress, and reach your fitness goals.</p>
+
+    <!-- Login and Register Buttons -->
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg" href="{% url 'signin' %}" role="button">Login</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'register' %}" role="button">Register</a>
+    </div>
+</div>
+{% endblock %}

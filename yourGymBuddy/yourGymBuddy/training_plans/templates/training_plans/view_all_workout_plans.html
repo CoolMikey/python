@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Workout Plans</h2>
+
+<!-- User's Plans Section -->
+{% if user_workout_plans %}
+    <h3>User's Plans</h3>
+    <ul class="list-group">
+        {% for plan in user_workout_plans %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ plan.title }}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't added any workout plans yet.</p>
+{% endif %}
+
+<hr>
+
+<!-- Community Plans Section -->
+<h3>Community Plans</h3>
+<form method="POST">
+    {% csrf_token %}
+    <ul class="list-group">
+        {% for plan in community_plans %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ plan.title }}
+            <button type="submit" name="add_plan" value="{{ plan.id }}" class="btn btn-success">+</button>
+        </li>
+        {% endfor %}
+    </ul>
+</form>
+{% endblock %}

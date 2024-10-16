@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Workout History</h2>
+<ul class="list-group mt-4">
+    {% for workout in completed_workouts %}
+    <li class="list-group-item">
+        <strong>Date:</strong> {{ workout.date_completed|date:"Y-m-d H:i" }} <br>
+        <strong>Exercise:</strong> {{ workout.exercise_set.exercise.name }} <br>
+        <strong>Reps:</strong> {{ workout.reps }} <br>
+        <strong>Weight:</strong> {{ workout.weight }} kg
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -17,14 +17,47 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from training_plans import views
 from django.contrib.auth import views as auth_views
 
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from training_plans import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('plans/', include('training_plans.urls')),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    path('plan/', include("training_plans.urls")),
-]
 
+    path('', views.home, name='home'),  # Home and Landing Page
+    path('account/', views.account_page, name='account_page'),
+
+    # Workout Plan Management
+    path('plans/', include([
+        path('', views.view_all_workout_plans, name='view_all_workout_plans'),  # View all workout plans
+        
+        path('create/', views.create_workout_plan, name='create_workout_plan'),  # Create a workout plan
+        path('add_sets/<int:workout_plan_id>/', views.add_sets, name='add_sets'),  # Add sets to a workout plan
+        path('user/', views.user_workout_plans, name='user_workout_plans'),  # View user's workout plans
+        path('modify/', views.modify_workout_list, name='modify_workout_list'),  # List workout plans to modify
+        path('modify/<int:workout_plan_id>/', views.modify_workout, name='modify_workout'),  # Modify a workout plan
+    ])),
+
+    # Exercise Tracking and Completed Workouts
+    path('exercises/', include([
+        path('pick/', views.pick_exercises, name='pick_exercises'),  # Pick exercises
+        path('track/<str:set_ids>/', views.track_workout, name='track_workout'),  # Track workout progress
+        path('completed/', views.view_completed_sets, name='view_completed_sets'),  # View completed workouts
+    ])),
+
+    # Account Management (Register, Login, Logout)
+    path('accounts/', include('django.contrib.auth.urls')),  # Django auth system
+    path('register/', views.register, name='register'),
+    path('login/', views.custom_login, name='login'),  # Custom login view
+    path('signin/', views.custom_login, name='signin'),  # Custom login view
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    # path('account/', views.account_page, name='account_page'),
+    path('workout_history/', views.workout_history, name='workout_history'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('progress_graph/', views.progress_graph, name='progress_graph'),
+    path('assign_plan/', views.assign_workout_plan, name='assign_workout_plan'),
+]

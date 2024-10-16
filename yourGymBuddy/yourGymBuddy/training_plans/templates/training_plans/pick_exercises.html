@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Pick Exercises for Your Workout</h2>
+<form method="POST">
+    {% csrf_token %}
+    <ul>
+        {% for set in sets %}
+        <li>
+            <input type="checkbox" name="sets" value="{{ set.id }}">
+            {{ set.exercise.name }} - {{ set.percentage_of_best }}% of Personal Best, {{ set.reps }} reps
+        </li>
+        {% endfor %}
+    </ul>
+    <button type="submit" class="btn btn-primary">Start Workout</button>
+</form>
+{% endblock %}

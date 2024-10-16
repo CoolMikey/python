@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Modify Workout Plan: {{ workout_plan.title }}</h2>
+
+<!-- Display an error message if the user doesn't enter a new title -->
+{% if error_message %}
+<div class="alert alert-danger">{{ error_message }}</div>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <!-- Editable title field for the workout plan -->
+    <div class="form-group">
+        <label for="title">New Workout Plan Title:</label>
+        <input type="text" id="title" name="title" class="form-control" value="{{ workout_plan.title }}">
+    </div>
+
+    <h3>Modify Sets</h3>
+    <ul class="list-group">
+        {% for set in workout_plan.sets.all %}
+        <li class="list-group-item">
+            <div class="form-group">
+                <label>{{ set.exercise.name }}:</label>
+                <input type="hidden" name="set_ids" value="{{ set.id }}">
+                
+                <label for="percentage_of_best_{{ set.id }}">Percentage of Personal Best (%):</label>
+                <input type="number" id="percentage_of_best_{{ set.id }}" name="percentage_of_best_{{ set.id }}" value="{{ set.percentage_of_best }}" class="form-control">
+
+                <label for="reps_{{ set.id }}">Reps:</label>
+                <input type="number" id="reps_{{ set.id }}" name="reps_{{ set.id }}" value="{{ set.reps }}" class="form-control">
+                
+                <!-- Add an X icon to remove the set -->
+                <button type="submit" name="remove_set" value="{{ set.id }}" class="btn btn-danger mt-2">Remove (X)</button>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3 class="mt-4">Add a New Exercise</h3>
+    <div class="form-group">
+        <label for="exercise">Select Exercise:</label>
+        <select name="exercise" id="exercise" class="form-control">
+            <option value="">-- Select an Exercise --</option>
+            {% for exercise in exercises %}
+            <option value="{{ exercise.id }}">{{ exercise.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="new_percentage_of_best">Percentage of Personal Best (%):</label>
+        <input type="number" id="new_percentage_of_best" name="new_percentage_of_best" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="new_reps">Reps:</label>
+        <input type="number" id="new_reps" name="new_reps" class="form-control">
+    </div>
+
+    <button type="submit" name="new_exercise" class="btn btn-primary mt-2">Add Exercise</button>
+    
+    <button type="submit" class="btn btn-success mt-3">Save as New Workout Plan</button>
+</form>
+
+{% endblock %}

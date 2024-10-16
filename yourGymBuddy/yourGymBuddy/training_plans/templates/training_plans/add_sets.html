@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Add Sets to Your Workout Plan</h2>
+
+    <!-- Information icon with tooltip -->
+    <p>
+        <strong>Personal Best: </strong>
+        This refers to the amount of weight you can lift 3 times in a row.
+        <span class="info-icon">ℹ️
+            <span class="tooltip-text">Your personal best should be the amount you can do 3 times in a row.</span>
+        </span>
+    </p>
+
+    <!-- Your existing form and logic for adding sets -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Set</button>
+    </form>
+</div>
+
+<!-- Inline CSS for the tooltip functionality -->
+<style>
+    .info-icon {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        color: #007bff;  /* Optional: style for the icon */
+    }
+
+    .tooltip-text {
+        visibility: hidden;
+        width: 220px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%; /* Position the tooltip above the icon */
+        left: 50%;
+        margin-left: -110px; /* Adjust to center the tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .info-icon:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+{% endblock %}

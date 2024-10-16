@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Workout Plans</h2>
+
+<!-- Filter Buttons -->
+<div class="btn-group mb-4" role="group">
+    <a href="?filter=all" class="btn btn-secondary {% if filter_type == 'all' %}active{% endif %}">All Plans</a>
+    <a href="?filter=created" class="btn btn-secondary {% if filter_type == 'created' %}active{% endif %}">Created by Me</a>
+    <a href="?filter=assigned" class="btn btn-secondary {% if filter_type == 'assigned' %}active{% endif %}">Assigned by Trainer</a>
+</div>
+
+<!-- Display Workout Plans -->
+<ul class="list-group">
+    {% for plan in workout_plans %}
+    <li class="list-group-item">
+        {{ plan.title }} {% if plan.assigned_by_trainer %}(Assigned by Trainer){% endif %}
+    </li>
+    {% empty %}
+    <li class="list-group-item">No workout plans available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Your Gym Buddy!</h1>
+    <p class="lead">Create personalized workout plans and track your progress.</p>
+    <hr class="my-4">
+    <p>Get started by creating a new workout plan or browse your existing plans.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'create_workout_plan' %}" role="button">Create Workout Plan</a>
+    <a class="btn btn-secondary btn-lg" href="{% url 'view_all_workout_plans' %}" role="button">View Workout Plans</a>
+</div>
+{% endblock %}

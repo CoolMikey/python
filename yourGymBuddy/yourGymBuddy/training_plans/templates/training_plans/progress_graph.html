@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Progress Graph</h2>
+
+<!-- Form to select exercise -->
+<form method="POST" class="form-inline mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Show Graph</button>
+</form>
+
+<!-- Graph Display -->
+{% if graph %}
+    <h3>Progress for {{ form.cleaned_data.exercise.name }}</h3>
+    <img src="data:image/png;base64,{{ graph }}" alt="Progress Graph" />
+{% else %}
+    <p>Select an exercise to view your progress.</p>
+{% endif %}
+{% endblock %}

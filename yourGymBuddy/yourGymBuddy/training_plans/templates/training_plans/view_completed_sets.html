@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Completed Workouts</h2>
+<ul>
+    {% for set in completed_sets %}
+    <li>
+        {{ set.exercise_set.exercise.name }} - Weight: {{ set.weight }} kg, Reps: {{ set.reps }} 
+        (Completed on {{ set.date_completed }})
+    </li>
+    {% endfor %}
+</ul>
+<a href="javascript:window.print();" class="btn btn-primary">Print Workout</a>
+{% endblock %}
