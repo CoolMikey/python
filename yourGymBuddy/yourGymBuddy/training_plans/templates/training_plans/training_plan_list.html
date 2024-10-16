@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Training Plans</title>
+</head>
+<body>
+    <h1>Training Plans</h1>
+    <ul>
+        {% for plan in plans %}
+            <li>{{ plan.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
